@@ -33,6 +33,8 @@ Snake::Snake(Vector2f coord, float q)
 
 void Snake::update( direction_t direction )
 {
+	choose_direction.push_back( direction );
+		
 	if ( last_update_timer.getElapsedTime().asMilliseconds() > update_period )
 	{
 		actual_direction = direction;
