@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "fruit.hpp"
 #include "snake.hpp"
 
@@ -7,8 +8,8 @@ using namespace std;
 
 int main()
 {
-	RenderWindow window(sf::VideoMode(1200,800), "Snake du bg");
-	window.setVerticalSyncEnabled(true);
+	RenderWindow window(sf::VideoMode(800,800), "Snake du bg");
+	window.setVerticalSyncEnabled(false);
 	
 	View view;	
 
@@ -19,30 +20,37 @@ int main()
 
 	while(window.isOpen())
 	{
-		if(sf::Keyboard::isKeyPressed( sf::Keyboard::Z ))
-			snake.update( NORTH );
-		if(sf::Keyboard::isKeyPressed( sf::Keyboard::Q ))
-			snake.update( WEST );
-		if(sf::Keyboard::isKeyPressed( sf::Keyboard::S ))
-			snake.update( SOUTH );
-		if(sf::Keyboard::isKeyPressed( sf::Keyboard::D ))
-			snake.update( EAST );
-	
-		if(sf::Keyboard::isKeyPressed( sf::Keyboard::Escape ))
-			window.close();
-		
-		view.setSize( Vector2f(1200,800) );
+		view.setSize( Vector2f(800,800) );
 		view.setCenter( snake.getPosition() );
 		window.setView( view );
 
+		vector<direction_t> direction_stack;
 		Event event;
 		while(window.pollEvent(event))
 		{
+			if(event.type == Event::KeyPressed)
+			{
+				if(event.key.code == Keyboard::Escape)
+					window.close();
+				if(event.key.code == Keyboard::Z)
+					direction_stack.push_back( NORTH );
+				if(event.key.code == Keyboard::Q)
+					direction_stack.push_back( WEST );
+				if(event.key.code == Keyboard::S)
+					direction_stack.push_back( SOUTH );
+				if(event.key.code == Keyboard::D)
+					direction_stack.push_back( EAST );
+			}
 			if(event.type == Event::Closed)
 				window.close();
 		}
-		
+		if( direction_stack.size() > 0 )	
+			snake.setDirection( direction_stack.back()  );	
 
+
+		snake.update();
+
+		
 		window.clear();
 		for( Fruit& f : fruits )
 			window.draw( f );

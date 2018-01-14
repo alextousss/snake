@@ -13,7 +13,7 @@ Snake::Snake()
 	quantum = Vector2f(10.f,10.f);
 	color = Color(255,70,60);
 	size = 25;
-
+	actual_direction = NORTH;
 	last_update_timer.restart();
 	update_period = 20;
 }
@@ -28,16 +28,26 @@ Snake::Snake(Vector2f coord, float q)
 	quantum = Vector2f(q,q);
 	color = Color(70,200,60);
 	size = 25;
+	actual_direction = NORTH;
 	update_period = 20;
 }
 
-void Snake::update( direction_t direction )
+void Snake::setDirection( direction_t direction )
 {
-	choose_direction.push_back( direction );
+	if( !( (direction == NORTH && actual_direction == SOUTH)  
+	||     (direction == SOUTH && actual_direction == NORTH)
+	||     (direction == EAST  && actual_direction == WEST )
+	||	   (direction == WEST  && actual_direction == EAST ) ) )	 
+	{
+		this->actual_direction = direction;
+	}
+}
+
+void Snake::update( )
+{
 		
 	if ( last_update_timer.getElapsedTime().asMilliseconds() > update_period )
 	{
-		actual_direction = direction;
 		coord.push_front( Vector2f(coord[0].x + quantum.x * moveByDirection[ actual_direction ].x, coord[0].y + quantum.y * moveByDirection [ actual_direction ].y) );
 		
 		while(coord.size() > size)
