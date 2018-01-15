@@ -9,11 +9,11 @@ using namespace std;
 int main()
 {
 	RenderWindow window(sf::VideoMode(800,800), "Snake du bg");
-	window.setVerticalSyncEnabled(false);
-	
-	View view;	
+	window.setVerticalSyncEnabled(true);
 
-	Snake snake(Vector2f(500,500), 10);	
+	View view;
+
+	Snake snake(Vector2f(500,500), 10);
 	vector<Fruit> fruits;
 	for(unsigned int i = 0 ; i < 100 ; i++)
 		fruits.push_back( Fruit( Vector2f(i*20, i*10 ), 10.f ) );
@@ -44,13 +44,13 @@ int main()
 			if(event.type == Event::Closed)
 				window.close();
 		}
-		if( direction_stack.size() > 0 )	
-			snake.setDirection( direction_stack.back()  );	
+		if( direction_stack.size() > 0 )
+			snake.setDirection( direction_stack.back()  );
 
 
 		snake.update();
 
-		
+
 		window.clear();
 		for( Fruit& f : fruits )
 			window.draw( f );

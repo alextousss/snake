@@ -15,7 +15,7 @@ Snake::Snake()
 	size = 25;
 	actual_direction = NORTH;
 	last_update_timer.restart();
-	update_period = 20;
+	update_period = 25;
 }
 
 Snake::Snake(Vector2f coord, float q)
@@ -29,15 +29,15 @@ Snake::Snake(Vector2f coord, float q)
 	color = Color(70,200,60);
 	size = 25;
 	actual_direction = NORTH;
-	update_period = 20;
+	update_period = 25;
 }
 
 void Snake::setDirection( direction_t direction )
 {
-	if( !( (direction == NORTH && actual_direction == SOUTH)  
+	if( !( (direction == NORTH && actual_direction == SOUTH)
 	||     (direction == SOUTH && actual_direction == NORTH)
 	||     (direction == EAST  && actual_direction == WEST )
-	||	   (direction == WEST  && actual_direction == EAST ) ) )	 
+	||	   (direction == WEST  && actual_direction == EAST ) ) )
 	{
 		this->actual_direction = direction;
 	}
@@ -45,17 +45,16 @@ void Snake::setDirection( direction_t direction )
 
 void Snake::update( )
 {
-		
 	if ( last_update_timer.getElapsedTime().asMilliseconds() > update_period )
 	{
 		coord.push_front( Vector2f(coord[0].x + quantum.x * moveByDirection[ actual_direction ].x, coord[0].y + quantum.y * moveByDirection [ actual_direction ].y) );
-		
+
 		while(coord.size() > size)
 			coord.pop_back();
 
 
 		vertices.setPrimitiveType(sf::Quads);
-		vertices.resize( coord.size() * 4 );	
+		vertices.resize( coord.size() * 4 );
   	for( unsigned int i = 0; i < coord.size() ; i++ )
 		{
 			vertices[i * 4 + 0].color = color;
@@ -63,10 +62,10 @@ void Snake::update( )
 			vertices[i * 4 + 2].color = color;
 			vertices[i * 4 + 3].color = color;
 
-			vertices[i * 4 + 0].position = sf::Vector2f( coord[i].x, coord[i].y + quantum.y); 
+			vertices[i * 4 + 0].position = sf::Vector2f( coord[i].x, coord[i].y + quantum.y);
 			vertices[i * 4 + 1].position = sf::Vector2f( coord[i].x, coord[i].y);
-			vertices[i * 4 + 2].position = sf::Vector2f( coord[i].x + quantum.x, coord[i].y); 
-			vertices[i * 4 + 3].position = sf::Vector2f( coord[i].x + quantum.x, coord[i].y + quantum.y); 
+			vertices[i * 4 + 2].position = sf::Vector2f( coord[i].x + quantum.x, coord[i].y);
+			vertices[i * 4 + 3].position = sf::Vector2f( coord[i].x + quantum.x, coord[i].y + quantum.y);
 		}
 	last_update_timer.restart();
 	}
