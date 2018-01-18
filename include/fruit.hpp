@@ -9,6 +9,8 @@ public:
 	Fruit();
 	Fruit(sf::Vector2f coord, float q);
 	void update();
+	sf::Vector2f getPosition() { return coord ; }
+	void eat() { ; }
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private:
 	sf::Vector2f coord;

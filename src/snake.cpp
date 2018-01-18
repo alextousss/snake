@@ -9,13 +9,14 @@ Snake::Snake()
 										  Vector2f( 1, 0),
 										  Vector2f( 0, 1) };
 
-	coord.push_front( Vector2f(75.f,75.f) );
+	coord.push_front( Vector2f(90.f,90.f) );
 	quantum = Vector2f(10.f,10.f);
 	color = Color(255,70,60);
 	size = 15;
 	actual_direction = NORTH;
+	next_direction = NORTH;
 	last_update_timer.restart();
-	update_period = 75;
+	update_period = 90;
 }
 
 Snake::Snake(Vector2f coord, float q)
@@ -29,7 +30,9 @@ Snake::Snake(Vector2f coord, float q)
 	color = Color(70,200,60);
 	size = 15;
 	actual_direction = NORTH;
-	update_period = 75;
+	next_direction = NORTH;
+	last_update_timer.restart();
+	update_period = 90;
 }
 
 void Snake::setDirection( direction_t direction )
@@ -39,7 +42,7 @@ void Snake::setDirection( direction_t direction )
 	||     (direction == EAST  && actual_direction == WEST )
 	||	   (direction == WEST  && actual_direction == EAST ) ) )
 	{
-		this->actual_direction = direction;
+		this->next_direction = direction;
 	}
 }
 
@@ -47,8 +50,8 @@ void Snake::update( )
 {
 	if ( last_update_timer.getElapsedTime().asMilliseconds() > update_period )
 	{
-		coord.push_front( Vector2f(coord[0].x + quantum.x * moveByDirection[ actual_direction ].x, coord[0].y + quantum.y * moveByDirection [ actual_direction ].y) );
-
+		coord.push_front( Vector2f(coord[0].x + quantum.x * moveByDirection[ next_direction ].x, coord[0].y + quantum.y * moveByDirection [ next_direction ].y) );
+		actual_direction = next_direction;
 		while(coord.size() > size)
 			coord.pop_back();
 
@@ -56,7 +59,6 @@ void Snake::update( )
 	}
 	else
 	{
-	//	coord[0] = Vector2f( Vector2f(coord[0].x + quantum.x * moveByDirection[ actual_direction ].x, coord[].y + quantum.y * moveByDirection [ actual_direction ].y) );
 		vertices.setPrimitiveType(sf::Quads);
 		vertices.resize( coord.size() * 4 );
 		for( unsigned int i = 0; i < coord.size() ; i++ )

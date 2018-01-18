@@ -1,10 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
-#include "fruit.hpp"
-#include "snake.hpp"
-#include "dynamicView.hpp"
-
+#include <gamelevel.hpp>
 using namespace sf;
 using namespace std;
 
@@ -13,6 +10,9 @@ using namespace std;
 
 int main()
 {
+	Gamelevel level;
+	level.run();
+	/*
 	RenderWindow window(sf::VideoMode(SCREEN_HEIGHT,SCREEN_WIDTH), "Snake du bg");
 	window.setVerticalSyncEnabled(true);
 
@@ -21,7 +21,7 @@ int main()
 	Snake snake(Vector2f(500,500), 10);
 	vector<Fruit> fruits;
 	for(unsigned int i = 0 ; i < 100 ; i++)
-		fruits.push_back( Fruit( Vector2f(i*20, i*10 ), 10.f ) );
+		fruits.push_back( Fruit( Vector2f(i*20, i*10), 10.f ) );
 
 	view.setSize( Vector2f(SCREEN_HEIGHT,SCREEN_WIDTH) );
 
@@ -66,6 +66,6 @@ int main()
 
 		window.display();
 	}
-
+*/
 	return 0;
 }
