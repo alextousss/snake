@@ -17,12 +17,14 @@ public:
 	void update();
 	void setDirection( direction_t direction);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
+	bool hasAdvanced();
+	unsigned int getState()											{ return state ; }	
 	void setSize( unsigned int new_size ) 			{ size = new_size ; }
 	int getSize() 															{ return size ;}
 	sf::Vector2f getHeadPosition() 							{ return coord[0] ; }
 	std::deque<sf::Vector2f>& getCoords() 			{ return coord ; }
 private:
+	bool has_advanced;
 	std::deque<sf::Vector2f> coord;
 	sf::Vector2f quantum;
 	unsigned int size;
@@ -35,6 +37,7 @@ private:
 	direction_t next_direction;
 	std::array<sf::Vector2f, 4> moveByDirection;
 	sf::Clock last_update_timer;
+	unsigned int state;
 	int update_period;
 };
 

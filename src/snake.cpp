@@ -17,6 +17,8 @@ Snake::Snake()
 	next_direction = NORTH;
 	last_update_timer.restart();
 	update_period = 90;
+	has_advanced = 0;
+	state=0;
 }
 
 Snake::Snake(Vector2f coord, float q)
@@ -33,6 +35,21 @@ Snake::Snake(Vector2f coord, float q)
 	next_direction = NORTH;
 	last_update_timer.restart();
 	update_period = 90;
+	has_advanced = 0;
+	state=0;
+}
+
+bool Snake::hasAdvanced()
+{
+	if( has_advanced )
+	{
+		has_advanced = false;
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
 }
 
 void Snake::setDirection( direction_t direction )
@@ -55,7 +72,9 @@ void Snake::update( )
 		while(coord.size() > size)
 			coord.pop_back();
 
+		has_advanced = true;
 		last_update_timer.restart();
+		state++;	
 	}
 	else
 	{

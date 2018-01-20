@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include "fruit.hpp"
 #include "snake.hpp"
+#include "netconstants.hpp"
 
 class GameServer;
 
@@ -18,12 +19,11 @@ class Client
 {
 friend class GameServer;
 public:
-  Client(sf::IpAddress address, short unsigned int port, unsigned int id);
+  Client(sf::IpAddress address, short unsigned int port/*, unsigned int id*/);
 private:
   unsigned int id;
   sf::IpAddress address;
   short unsigned int port;
-  bool key[4];
   Snake snake;
 
 };
