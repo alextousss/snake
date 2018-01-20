@@ -1,5 +1,7 @@
 #ifndef DEF_GAMELEVEL
 #define DEG_GAMELEVEL
+
+#include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <deque>
@@ -8,16 +10,25 @@
 #include "snake.hpp"
 #include "dynamicView.hpp"
 
+
+struct Server
+{
+  sf::IpAddress address;
+};
+
 class Gamelevel
 {
 private:
   std::vector<Fruit> fruits;
   Snake snake;
+  Server connected_server;
   DynamicView view;
   sf::RenderWindow window;
+
 public:
   Gamelevel();
   void run();
+
 
 };
 
