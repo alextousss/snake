@@ -10,16 +10,16 @@
 
 class GameServer;
 
-int rand_ab (int a, int b)
-{
-  return rand() % (b-a) + a;
-}
+
+int rand_xyz (int a, int b);
+
 
 class Client
 {
 friend class GameServer;
 public:
-  Client(sf::IpAddress address, short unsigned int port/*, unsigned int id*/);
+  Client(sf::IpAddress address, short unsigned int port, unsigned int id);
+  unsigned int getId() { return id ; }
 private:
   unsigned int id;
   sf::IpAddress address;

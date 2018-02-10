@@ -1,17 +1,26 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
-#include <gamelevel.hpp>
+#include "gameclient.hpp"
+#include "server.hpp"
 using namespace sf;
 using namespace std;
 
 #define SCREEN_HEIGHT 1400
 #define SCREEN_WIDTH 800
 
-int main()
+int main (int argc, char *argv[])
 {
-	Gamelevel level;
-	level.run();
+	if (argc < 2)
+	{
+		GameClient client("127.0.0.1", 27563);
+		client.run();
+	}
+	else
+	{
+		GameServer server;
+		server.run();
+	}
 	/*
 	RenderWindow window(sf::VideoMode(SCREEN_HEIGHT,SCREEN_WIDTH), "Snake du bg");
 	window.setVerticalSyncEnabled(true);

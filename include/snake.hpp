@@ -2,8 +2,11 @@
 #define DEF_SNAKE
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <deque>
 #include <queue>
+
+#define UPDATE_PERIOD 110
 
 enum direction_t { NORTH, WEST, SOUTH, EAST };
 
@@ -14,13 +17,15 @@ public:
 	Snake();
 	Snake(sf::Vector2f coord, float q);
 
+	void addCoords(std::vector<sf::Vector2f>& coords, unsigned int coords_state);
 	void update();
 	void setDirection( direction_t direction);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	bool hasAdvanced();
-	unsigned int getState()											{ return state ; }	
+	direction_t getLastDirection() 							{ return next_direction ; }
+	unsigned int getState()											{ return state ; }
 	void setSize( unsigned int new_size ) 			{ size = new_size ; }
-	int getSize() 															{ return size ;}
+	unsigned int getSize() 															{ return size ;}
 	sf::Vector2f getHeadPosition() 							{ return coord[0] ; }
 	std::deque<sf::Vector2f>& getCoords() 			{ return coord ; }
 private:

@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS= -Wall -ansi -pedantic -g3 -O0 -c -std=c++11
-LDFLAGS= -lsfml-graphics -lsfml-window -lsfml-system 
+LDFLAGS= -lsfml-graphics -lsfml-window -lsfml-system  -lsfml-network
 EXEC=snake
 SRCDIR=src
 ODIR=obj

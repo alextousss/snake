@@ -21,7 +21,6 @@ class Gamelevel
 private:
   std::vector<Fruit> fruits;
   Snake snake;
-  Server connected_server;
   DynamicView view;
   sf::RenderWindow window;
 
