@@ -33,7 +33,10 @@ class GameServer
 public:
   GameServer();
   void run();
-
+  void broadcastState();
+  void readIncomingStates();
+  void updateGameLogic();
+  
 private:
   sf::UdpSocket socket;
   std::vector<Client> clients;

@@ -10,7 +10,7 @@
 #define SEND_FRUIT          6
 #define SEND_FRUIT_FINISH   7
 
-#define SNAKE_COORDS_BY_STEP 10
+#define SNAKE_COORDS_BY_STEP 3
 
 
 #endif

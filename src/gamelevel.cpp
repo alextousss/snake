@@ -44,14 +44,11 @@ void Gamelevel::run()
     if( direction_stack.size() > 0 )
       snake.setDirection( direction_stack.back()  );
 
-
     view.update( snake.getHeadPosition() );
     window.setView( view );
 
     snake.update();
     Vector2f snake_head_pos = snake.getHeadPosition();
-
-
     for( unsigned int i = 0 ; i < fruits.size() ; i++ )
     {
       fruits[i].update();

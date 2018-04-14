@@ -10,7 +10,6 @@ GameClient::GameClient(sf::IpAddress address, unsigned short port) : window(sf::
   window.setVerticalSyncEnabled(true);
   server = { address, port };
   view.setSize( Vector2f(SCREEN_HEIGHT,SCREEN_WIDTH) );
-
   socket.setBlocking(false);
 }
 
@@ -98,10 +97,6 @@ void GameClient::run()
           direction_t direction;
           incoming_packet >> id >> remote_state >> size >> direction_int;
           direction = static_cast<direction_t>(direction_int);
-/*            cout << "id : " << id << endl;
-          cout << "remote state : " << remote_state << endl;
-          cout << "size : " << size << endl;*/
-        //  cout << direction << endl;
           for(unsigned int i = 0 ; i < SNAKE_COORDS_BY_STEP ; i++)
           {
             Vector2f coord;
@@ -111,17 +106,15 @@ void GameClient::run()
           snakes[id].setDirection(direction);
           snakes[id].setSize(size);
           snakes[id].addCoords(coords, remote_state);
-          snakes[id].update();
 
           break;
       }
     }
 
-
     window.clear();
     for ( map<unsigned int, Snake>::iterator it = snakes.begin(); it != snakes.end(); ++it)
     {
-      it->second.update();
+      it->second.update(true);
       window.draw( it->second );
     }
     for( Fruit& f : fruits )
@@ -132,8 +125,5 @@ void GameClient::run()
     view.update( snakes[client_snake_id].getHeadPosition() );
     window.setView(view);
     window.display();
-
-
   }
-
 }
